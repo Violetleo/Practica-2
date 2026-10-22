@@ -10,7 +10,7 @@ npm start        # producción
 npm run dev      # recarga automática al guardar (Node 18.11+)
 ```
  
-Servidor en http://localhost:3000
+Servidor en http://localhost:5000
  
 ## Estructura
  
