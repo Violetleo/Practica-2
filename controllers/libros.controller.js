@@ -43,8 +43,7 @@ function crear(req, res) {
   res.status(201).json(nuevo);
 }
 
-// PUT: reemplazo completo (todos los campos obligatorios).
-// "disponible" lo gestionan /prestar y /devolver, por lo que se ignora aquí.
+
 function reemplazar(req, res) {
   const body = req.body || {};
   const { titulo, autor } = body;
@@ -113,7 +112,7 @@ function borrar(req, res) {
   if (!req.libro.disponible) {
     return error(res, 409, "No se puede borrar un libro que está prestado");
   }
-  // splice modifica el array original (importante porque se comparte vía db)
+  // splice modifica el array original 
   const indice = db.libros.findIndex((l) => l.id === req.libro.id);
   db.libros.splice(indice, 1);
   res.status(204).send();
