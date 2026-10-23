@@ -1,7 +1,7 @@
-const { Router } = require("express");
-const cargarLibro = require("../middlewares/cargarLibro");
-const libros = require("../controllers/libros.controller");
-const prestamos = require("../controllers/prestamos.controller");
+import { Router } from "express";
+import cargarLibro from "../middlewares/cargarLibro";
+import libros from "../controllers/libros.controller";
+import prestamos from "../controllers/prestamos.controller";
 
 const router = Router();
 
@@ -18,5 +18,4 @@ router.get("/:id/prestamos", cargarLibro, prestamos.historialDeLibro);
 router.post("/:id/prestar", cargarLibro, prestamos.prestar);
 router.post("/:id/devolver", cargarLibro, prestamos.devolver);
 
-module.exports = router;
-
+export default router;
