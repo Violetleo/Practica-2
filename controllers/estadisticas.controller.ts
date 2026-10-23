@@ -1,0 +1,30 @@
+import { Request, Response } from "express";
+import db from "../data/db";
+
+function obtener(req: Request, res: Response) {
+    const total = db.libros.length;
+    const disponibles = db.libros.filter((l) => l.disponible).length;
+
+    const conteo: Record<string, number> = {};
+
+    for (const l of db.libros) {
+        conteo[l.autor] = (conteo[l.autor] || 0) + 1;
+    }
+
+    let autorConMasLibros: { autor: string; cantidad: number } | null = null;
+
+    for (const [autor, cantidad] of Object.entries(conteo)) {
+        if (!autorConMasLibros || cantidad > autorConMasLibros.cantidad) {
+            autorConMasLibros = { autor, cantidad };
+        }
+    }
+
+    res.status(200).json({
+        totalLibros: total,
+        disponibles,
+        prestados: total - disponibles,
+        autorConMasLibros
+    });
+}
+
+export { obtener };
